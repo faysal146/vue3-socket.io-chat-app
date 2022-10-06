@@ -1,0 +1,39 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "npm run build && node dist/main.js",
+		"dev": "nodemon",
+		"build": "rimraf ./dist && tsc",
+		"lint": "eslint --fix ./src"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^18.8.2",
+		"@typescript-eslint/eslint-plugin": "^5.0.0",
+		"eslint": "^8.0.1",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-standard-with-typescript": "^23.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"prettier": "^2.7.1",
+		"rimraf": "^3.0.2",
+		"ts-node": "^10.9.1",
+		"typescript": "*",
+		"vite": "^3.1.4"
+	},
+	"dependencies": {
+		"@fastify/cors": "^8.1.0",
+		"fastify": "^4.7.0",
+		"socket.io": "^4.5.2"
+	},
+	"optionalDependencies": {
+		"bufferutil": "^4.0.6",
+		"utf-8-validate": "^5.0.9"
+	}
+}
