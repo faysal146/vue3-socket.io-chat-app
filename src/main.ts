@@ -1,26 +1,30 @@
-import { Server } from 'socket.io'
-import express from 'express'
-import { createServer } from 'http'
-import dotenv from 'dotenv'
+import app from './app'
+import * as config from './config/config'
+import logger from './config/logger'
 
-dotenv.config()
-
-const app = express()
-
-app.use(express.json())
-
-const httpServer = createServer(app)
-const io = new Server(httpServer, {
-	cors: {
-		origin: '*',
-	},
+const server = app.listen(config.port, () => {
+	logger.info(`Listening to port ${config.port}`)
 })
-
-io.on('connection', () => {
-	console.log('client connected')
-})
-
-const PORT = process.env.PORT === '' ? 3000 : process.env.PORT
-httpServer.listen(PORT, () => {
-	console.log(`server running on port ${PORT}`)
+// logger.info('Connected to MongoDB')
+const exitHandler = (): void => {
+	if (server) {
+		server.close(() => {
+			logger.info('Server closed')
+			process.exit(1)
+		})
+	} else {
+		process.exit(1)
+	}
+}
+const unexpectedErrorHandler = (error: any): void => {
+	logger.error(error)
+	exitHandler()
+}
+process.on('uncaughtException', unexpectedErrorHandler)
+process.on('unhandledRejection', unexpectedErrorHandler)
+process.on('SIGTERM', () => {
+	logger.info('SIGTERM received')
+	if (server) {
+		server.close()
+	}
 })
