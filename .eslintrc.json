@@ -13,6 +13,8 @@
 	},
 	"ignorePatterns": ["client/*", "node_modules/*"],
 	"rules": {
-		"@typescript-eslint/strict-boolean-expressions": "warn"
+		"@typescript-eslint/strict-boolean-expressions": "warn",
+		"@typescript-eslint/prefer-ts-expect-error": "off",
+		"@typescript-eslint/explicit-function-return-type": "off"
 	}
 }
